@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,7 +29,22 @@ namespace OnlySubs
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            
             services.AddDbContext<OnlySubsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            
+            services.Configure<CookiePolicyOptions>(option =>
+            {
+                option.MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Strict;
+            });
+            services.AddAuthentication(option => {
+                option.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            }).AddCookie(option => {
+                option.LoginPath = new Microsoft.AspNetCore.Http.PathString("/auth/signin");
+                option.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/auth/error");
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+            });
         }
 
         //Autofac
