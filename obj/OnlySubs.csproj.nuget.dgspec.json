@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {}
+    "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {
+    "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
+        "projectUniqueName": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "projectName": "OnlySubs",
-        "projectPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
+        "projectPath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "packagesPath": "C:\\Users\\mintc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\obj\\",
+        "outputPath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mintc\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -47,6 +47,10 @@
             "Autofac.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[7.1.0, )"
+            },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.2, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
