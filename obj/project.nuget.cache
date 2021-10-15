@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ClIPSNpfj8qxjZd346Otaq5EU5N7DsoihJ6g7yUkL7JQ1n5dxgazzm9DU23569bf+OfbP8zI2rpNKAi9KiRwog==",
+  "dgSpecHash": "3iIzmI9jp/ezPyk3B2egYf306/KP1ZcdDiTkxwpVMj4FKi2flmAZ0JLNaGfAPNHmR5iPhsFbqpZZsJ5QizRFnw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mintc\\Desktop\\OnlySubs\\OnlySubs.csproj",
+  "projectFilePath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\mintc\\.nuget\\packages\\autofac\\6.3.0\\autofac.6.3.0.nupkg.sha512",
+    "C:\\Users\\mintc\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
     "C:\\Users\\mintc\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\mintc\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\mintc\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",

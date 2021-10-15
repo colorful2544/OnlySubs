@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mintc\\Desktop\\OnlySubs\\OnlySubs.csproj": {}
+    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mintc\\Desktop\\OnlySubs\\OnlySubs.csproj": {
+    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mintc\\Desktop\\OnlySubs\\OnlySubs.csproj",
+        "projectUniqueName": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "projectName": "OnlySubs",
-        "projectPath": "C:\\Users\\mintc\\Desktop\\OnlySubs\\OnlySubs.csproj",
+        "projectPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "packagesPath": "C:\\Users\\mintc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mintc\\Desktop\\OnlySubs\\obj\\",
+        "outputPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mintc\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Autofac": {
+              "target": "Package",
+              "version": "[6.3.0, )"
+            },
+            "Autofac.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.1.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.11, )"

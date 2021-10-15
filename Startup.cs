@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +29,14 @@ namespace OnlySubs
         {
             services.AddControllersWithViews();
             services.AddDbContext<OnlySubsContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        }
+
+        //Autofac
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterAssemblyTypes(Assembly.GetExecutingAssembly())
+                   .Where(t => t.Name.EndsWith("Service"))
+                   .AsImplementedInterfaces();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
