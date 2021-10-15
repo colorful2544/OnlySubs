@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {}
+    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {}
   },
   "projects": {
-    "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {
+    "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
+        "projectUniqueName": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "projectName": "OnlySubs",
-        "projectPath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
+        "projectPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
         "packagesPath": "C:\\Users\\mintc\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\obj\\",
+        "outputPath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mintc\\AppData\\Roaming\\NuGet\\NuGet.Config",

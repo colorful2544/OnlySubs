@@ -142,3 +142,7 @@ C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\OnlySubs.dll
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\ref\OnlySubs.dll
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\OnlySubs.pdb
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\OnlySubs.genruntimeconfig.cache
+C:\Users\mintc\Documents\GitHub\OnlySubs\bin\Debug\net5.0\BCrypt.Net-Next.dll
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Auth\Index.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Auth\Register.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Account\Index.cshtml.g.cs

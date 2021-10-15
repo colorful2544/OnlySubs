@@ -1,0 +1,24 @@
+@model UserProfileResponse
+@{
+    ViewData["Title"] = User.Identity.Name;
+}
+
+<div class="container-md">
+    @if (ViewData["ErrorMessage"] != null)
+    {
+        <p class="alert alert-danger mb-3 mt-3">@ViewData["ErrorMessage"]</p>
+    }
+    else
+    {
+        <h1>@Model.Username</h1>
+        <img src="@Url.Content($"~/wwwroot/images/{@Model.ImageName}")" style="object-fit:cover">
+        <p>Follower @Model.Follower</p>
+        <p>Following @Model.Following</p>
+        <p>Krama @Model.Krama</p>
+        <p>Description @Model.Description</p>
+        @if (@Model.PostsImage.Count <= 0)
+        {
+            <p>No post</p>
+        }
+    }
+</div>

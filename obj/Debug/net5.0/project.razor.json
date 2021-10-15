@@ -15629,6 +15629,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Auth\\Register.cshtml",
+      "TargetPath": "Views\\Auth\\Register.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
@@ -15639,8 +15644,23 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Account\\Index.cshtml",
+      "TargetPath": "Views\\Account\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Auth\\Index.cshtml",
+      "TargetPath": "Views\\Auth\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Account\\Setting.cshtml",
+      "TargetPath": "Views\\Account\\Setting.cshtml",
       "FileKind": "mvc"
     },
     {
