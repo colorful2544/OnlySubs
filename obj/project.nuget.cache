@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "if10YMBrGuUxe8l5f6pHhotKGDIpqherZeTNn71p/6EEUwt6s5dOWeeUJwZkcZHwWL/gtp/+Kv5KfjMyO+TNqw==",
+  "dgSpecHash": "w8mlJlwqEWjt8KeRP6IjFubcKvqIk0Ygz5qiU0ebgbF1sEhgkjNhxw3GXcxo+Yc3FMMKvka998u6yLRQtjZ8xg==",
   "success": true,
-  "projectFilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
+  "projectFilePath": "C:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\OnlySubs.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mintc\\.nuget\\packages\\autofac\\6.3.0\\autofac.6.3.0.nupkg.sha512",
     "C:\\Users\\mintc\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
