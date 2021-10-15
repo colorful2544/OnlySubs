@@ -5,7 +5,7 @@ using OnlySubs.Models.db;
 
 namespace OnlySubs.Services.UserResourceService
 {
-    public class UserResourceService
+    public class UserResourceService : IUserResourceService
     {
         private readonly OnlySubsContext _db;
 
