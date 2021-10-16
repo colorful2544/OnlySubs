@@ -66,9 +66,6 @@ namespace OnlySubs.Controllers
         [HttpGet("signup")]
         public IActionResult Register()
         {
-            ViewData["Title"] = "Sign Up";
-            ViewData["ErrorMessage"] = null;
-
             return View();
         }
         [HttpPost("signup")]
