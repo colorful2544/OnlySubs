@@ -68,20 +68,51 @@ namespace OnlySubs.Services.PostService
 
             await _db.SaveChangesAsync();
         }
+        
+        public async Task<List<PostsResponse>> FindsByUsername(string username)
+        {
+            User user =  await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
+            IEnumerable<Post> posts = await _db.Posts.Where(p => p.UserId == user.Id).ToListAsync();
+
+            List<PostsResponse> postsResponses = new List<PostsResponse>(); 
+            foreach(Post post in posts)
+            {
+                string image = await _db.PostsImages.OrderBy(p => p.Id)
+                                                    .Where(p => p.PostId == post.Id)
+                                                    .Select(p => p.ImageName)
+                                                    .FirstOrDefaultAsync();
+                
+                PostsResponse postResponse = new PostsResponse
+                {
+                    Username = user.Username,
+                    ImageName = image,
+                    Created = post.Created
+                }; 
+
+                postsResponses.Add(postResponse);
+            }
+
+            return postsResponses;
+        }
 
         public async Task<List<PostResponse>> FindByUsername(string username)
         {
             User user =  await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
-            List<Post> post =  await _db.Posts.Where(post => post.UserId == user.Id).ToListAsync();
+            List<Post> post =  await _db.Posts.Where(post => post.UserId == user.Id)
+                                              .ToListAsync();
             
             List<PostResponse> postResponses = new List<PostResponse>();
 
             foreach(Post item in post)
             {
-                List<string> images = await _db.PostsImages.Where(i => i.PostId == item.Id).Select(o => o.ImageName).ToListAsync();
-                int likesCount = await _db.PostsLikes.Where(p => p.PostId == item.Id).CountAsync();
+                List<string> images = await _db.PostsImages.Where(i => i.PostId == item.Id)
+                                                           .Select(o => o.ImageName)
+                                                           .ToListAsync();
+                int likesCount = await _db.PostsLikes.Where(p => p.PostId == item.Id)
+                                                     .CountAsync();
                 
-                List<PostsComment> commentRaw = await _db.PostsComments.Where(p => p.PostId == item.Id).ToListAsync();
+                List<PostsComment> commentRaw = await _db.PostsComments.Where(p => p.PostId == item.Id)
+                                                                       .ToListAsync();
                 
                 List<Comment> commentWarm = new List<Comment>();
                 foreach(PostsComment c in commentRaw)
@@ -116,10 +147,13 @@ namespace OnlySubs.Services.PostService
         {
             List<ProfilePostImage> postList = new List<ProfilePostImage>();
 
-            var posts = await _db.Posts.Where(post => post.UserId == userId).ToListAsync();
+            var posts = await _db.Posts.Where(post => post.UserId == userId)
+                                       .ToListAsync();
             foreach(var post in posts)
             {
-                string image = await _db.PostsImages.OrderBy(i => i.Created).Select(u => u.ImageName).FirstOrDefaultAsync();
+                string image = await _db.PostsImages.OrderBy(i => i.Created)
+                                                    .Select(u => u.ImageName)
+                                                    .FirstOrDefaultAsync();
                 ProfilePostImage profilePost = new ProfilePostImage
                 {
                     ImageName = image,
