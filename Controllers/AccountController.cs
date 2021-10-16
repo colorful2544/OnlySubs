@@ -58,8 +58,6 @@ namespace OnlySubs.Controllers
         [HttpGet("setting")]
         public IActionResult Setting()
         {
-            string username = User.Identity.Name;
-            ViewData["Title"] = username;
             return View();
         }
     }

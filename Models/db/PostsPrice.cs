@@ -10,7 +10,6 @@ namespace OnlySubs.Models.db
         public string PostId { get; set; }
         public int Price { get; set; }
         public DateTime Created { get; set; }
-
         public virtual Post Post { get; set; }
     }
 }

@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using OnlySubs.Models;
+using OnlySubs.ViewModels.Requests;
+using OnlySubs.ViewModels.Responses;
 
 namespace OnlySubs.Services.PostService
 {
     public interface IPostService
     {
-        Task CreateAsync();
-        Task FindByUserId(string userId);
-        Task FindByUsername(string username);
+        Task CreateAsync(PostCreateRequest postCreateRequest, string userId);
+        Task<List<PostResponse>> FindByUsername(string username);
         Task<List<ProfilePostImage>> FindFirstImagePost(string username);
         Task UpdateAsync();
         Task Remove(string postId);
