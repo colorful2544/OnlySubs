@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OnlySubs.Models;
+using OnlySubs.Services.UserResourceService;
 
 namespace OnlySubs.Controllers
 {
@@ -14,20 +15,25 @@ namespace OnlySubs.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserResourceService _userResourceService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserResourceService userResourceService)
         {
             _logger = logger;
+            _userResourceService = userResourceService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            ViewData["Money"] = 0;
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
 

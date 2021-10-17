@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OnlySubs.Context;
@@ -29,6 +30,11 @@ namespace OnlySubs.Services.UserResourceService
         public async Task<UsersResource> FindResource(string userId)
         {
             return await _db.UsersResources.FirstOrDefaultAsync(resource => resource.UserId == userId);
+        }
+
+        public async Task<int?> FindMoney(string userId)
+        {
+            return await _db.UsersResources.Where(r => r.UserId == userId).Select(r => r.Money).FirstOrDefaultAsync();
         }
 
         public async Task AddKrama(int krama, string userId)
