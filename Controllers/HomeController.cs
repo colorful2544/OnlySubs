@@ -22,6 +22,7 @@ namespace OnlySubs.Controllers
 
         public IActionResult Index()
         {
+            ViewData["Money"] = 0;
             return View();
         }
 

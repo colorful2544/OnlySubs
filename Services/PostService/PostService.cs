@@ -29,19 +29,26 @@ namespace OnlySubs.Services.PostService
             _imageService = imageService;
         }
 
-        public async Task CreateAsync(PostCreateRequest postCreateRequest, string userId)
+        public async Task<string> CreateAsync(PostCreateRequest postCreateRequest, string userId)
         {
             string postId = Guid.NewGuid().ToString();
+            bool isSub = false;
+
+            if(postCreateRequest.Price > 0)
+            {
+                isSub = true;
+            }
+
             Post post = new Post
             {
                 Id = postId,
                 UserId = userId,
                 Description = postCreateRequest.Description,
-                IsSub = postCreateRequest.IsSub
+                IsSub = isSub
             };
             _db.Posts.Add(post);
 
-            if(postCreateRequest.IsSub)
+            if(postCreateRequest.Price > 0)
             {
                 PostsPrice price = new PostsPrice
                 {
@@ -55,6 +62,7 @@ namespace OnlySubs.Services.PostService
             foreach(IFormFile image in postCreateRequest.Images)
             {
                 string imageName = _imageService.Create(image);
+                imagesName.Add(imageName);
             }
             foreach(string image in imagesName)
             {
@@ -67,6 +75,8 @@ namespace OnlySubs.Services.PostService
             }
 
             await _db.SaveChangesAsync();
+
+            return postId;
         }
         
         public async Task<List<PostsResponse>> FindsByUsername(string username)

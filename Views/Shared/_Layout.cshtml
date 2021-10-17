@@ -23,6 +23,10 @@
                                 @User.Identity.Name
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="">Cash : @ViewData["Money"]</a></li>
+                                <li>
+                                    <hr style="margin: 10px">
+                                </li>
                                 <li><a class="dropdown-item" href="/account/@User.Identity.Name">Profile</a></li>
                                 <li><a class="dropdown-item" href="/account/setting">Setting</a></li>
                                 <li>

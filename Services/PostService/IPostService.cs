@@ -8,7 +8,7 @@ namespace OnlySubs.Services.PostService
 {
     public interface IPostService
     {
-        Task CreateAsync(PostCreateRequest postCreateRequest, string userId);
+        Task<string> CreateAsync(PostCreateRequest postCreateRequest, string userId);
         Task<List<PostsResponse>> FindsByUsername(string username);
         Task<PostResponse> FindByPostId(string postId);
         Task<List<ProfilePostImage>> FindFirstImagePost(string username);
