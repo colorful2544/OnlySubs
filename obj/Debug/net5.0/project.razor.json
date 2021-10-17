@@ -15654,6 +15654,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Post\\Index.cshtml",
+      "TargetPath": "Views\\Post\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Shared\\_Layout.cshtml",
       "TargetPath": "Views\\Shared\\_Layout.cshtml",
       "FileKind": "mvc"
@@ -15671,6 +15676,11 @@
     {
       "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Post\\FindByPostId.cshtml",
+      "TargetPath": "Views\\Post\\FindByPostId.cshtml",
       "FileKind": "mvc"
     }
   ],

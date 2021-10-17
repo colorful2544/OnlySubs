@@ -147,3 +147,5 @@ C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Auth\Index
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Auth\Register.cshtml.g.cs
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Account\Index.cshtml.g.cs
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Account\Setting.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Post\FindByPostId.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Post\Index.cshtml.g.cs
