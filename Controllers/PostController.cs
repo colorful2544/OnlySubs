@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlySubs.Services.ImageService;
 using OnlySubs.Services.PostService;
+using OnlySubs.Services.UserResourceService;
 using OnlySubs.ViewModels.Requests;
 
 namespace OnlySubs.Controllers
@@ -15,22 +16,30 @@ namespace OnlySubs.Controllers
     {
         private readonly IImageService _imageService;
         private readonly IPostService _postService;
+        private readonly IUserResourceService _userResourceService;
 
         public PostController(IImageService imageService,
-                              IPostService postService)
+                              IPostService postService,
+                              IUserResourceService userResourceService)
         {
             _imageService = imageService;
             _postService = postService;
+            _userResourceService = userResourceService;
         }
         [HttpGet("create")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
         [HttpPost("create")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(PostCreateRequest postCreateRequest)
         {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
+
             if(!ModelState.IsValid) return View(postCreateRequest);
 
             string[] extention = new string[] {".jpg", ".png"};
@@ -40,15 +49,16 @@ namespace OnlySubs.Controllers
                 ViewData["ErrorMessage"] = "Please upload an image with a .jpg , .png file extension.";
                 return View(postCreateRequest);
             }
-
-            string userId = User.Claims.FirstOrDefault(u => u.Type == "id").Value;
+            
             string postId = await _postService.CreateAsync(postCreateRequest, userId);
 
             return Redirect($"/post/{postId}");
         }
         [HttpGet("{postId}")]
-        public IActionResult FindByPostId(string postId)
+        public async Task<IActionResult> FindByPostId(string postId)
         {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
     }

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,9 @@ namespace OnlySubs.Controllers
         [HttpGet("{username}")]
         public async Task<IActionResult> Index(string username)
         {
-            ViewData["Title"] = username;
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
+            
             User user = await _userService.FindByUsernameAsync(username);
 
             if(user == null)
@@ -56,8 +59,10 @@ namespace OnlySubs.Controllers
             return View(userProfileResponse);
         }
         [HttpGet("setting")]
-        public IActionResult Setting()
+        public async Task<IActionResult> Setting()
         {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
     }
