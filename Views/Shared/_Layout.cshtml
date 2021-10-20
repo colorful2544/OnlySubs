@@ -6,14 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OnlySubs</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Site.css" />
     <link rel="stylesheet" href="~/css/Login.css" />
+    <link rel="stylesheet" href="~/css/Post.css" />
 </head>
 
 <body>
     @if (User.Identity.IsAuthenticated)
     {
         <header>
-            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3 fixed-top shadow">
                 <div class="container">
                     <a class="navbar-brand" href="/">OnlySubs</a>
                     <ul class="navbar-nav">

@@ -1,14 +1,4 @@
-﻿@font-face {
-    font-family: logo;
-    src: url(../fonts/Rochester-Regular.ttf);
-}
-
-@font-face {
-    font-family: underLogo;
-    src: url(../fonts/Ruluko-Regular.ttf);
-}
-
-.makeButtonCenter {
+﻿.makeButtonCenter {
     padding-right: 10%;
     padding-left: 10%;
 }
