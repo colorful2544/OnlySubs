@@ -7,6 +7,7 @@ namespace OnlySubs.Services.UserResourceService
     {
         Task SetResource(int resource, string userId); 
         Task<UsersResource> FindResource(string userId);
+        Task<int?> FindMoney(string userId);
         Task AddKrama(int krama, string userId); 
         Task AddMoney(int money, string userId); 
         Task SubtrackKrama(int krama, string userId);

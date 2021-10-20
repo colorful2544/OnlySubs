@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using OnlySubs.Models.db;
 using OnlySubs.Services.PasswordService;
+using OnlySubs.Services.UserResourceService;
 using OnlySubs.Services.UserRoleService;
 using OnlySubs.Services.UserService;
 using OnlySubs.ViewModels.Requests;
@@ -66,9 +68,6 @@ namespace OnlySubs.Controllers
         [HttpGet("signup")]
         public IActionResult Register()
         {
-            ViewData["Title"] = "Sign Up";
-            ViewData["ErrorMessage"] = null;
-
             return View();
         }
         [HttpPost("signup")]
