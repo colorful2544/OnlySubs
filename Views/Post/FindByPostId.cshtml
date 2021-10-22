@@ -1,1 +1,101 @@
-<h1>Post</h1>
+@model CommentRequest
+@{
+    int countImage = 0;
+    PostResponse postModel = ViewBag.PostResponse;
+}
+@if (postModel == null)
+{
+    <h1 style="margin-top: 100px;">หาไม่เจอ</h1>
+}
+else
+{
+
+    <div class="d-flex justify-content-center" style="margin-top: 80px;">
+        <div class="post mt-5 mb-5">
+            <header class="post-header">
+                <div>
+                    <img class="img-profile" src="@Url.Content($"~/wwwroot/images/{@postModel.UserImage}")">
+                </div>
+                <div class="header-text">
+                    <h4 class="username">@postModel.Username</h4>
+                    <span>@postModel.Created.ToString("dddd, dd MMMM yyyy")</span>
+                </div>
+            </header>
+            <div>
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+
+                    <div class="carousel-inner">
+                        @foreach (var item in postModel.Images)
+                        {
+                            @if (countImage == 0)
+                            {
+                                <div class="carousel-item active carousel-content-img">
+                                    <img src="@Url.Content($"~/wwwroot/images/{@item}")" alt="...">
+                                </div>
+                                { countImage++; }
+                            }
+                            else
+                            {
+                                <div class="carousel-item carousel-content-img">
+                                    <img src="@Url.Content($"~/wwwroot/images/{@item}")" alt="...">
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <div class="response-icon">
+                <ul class="icon">
+                    <li>
+                        <a>
+                            <i class="far fa-heart fa-2x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="container-comment">
+            <!-- write -->
+        <form action="/post/comment/@postModel.PostId" method="post" class="form-comment-write">
+                <img src="@Url.Content($"~/wwwroot/images/{@ViewData["currentUserImage"]}")" class="comment-write-img">
+                <div class="comment-write-text">
+                    <input asp-for="Description" type="text" class="comment-write-text-input" placeholder="comment">
+                    <button type="submit">
+                        <i class="fas fa-reply fa-2x"></i>
+                    </button>
+                </div>
+                <span asp-validation-for="Description"></span>
+            </form>
+
+            <!-- read -->
+        <div class="mb-5">
+                @foreach (var item in postModel.Comment)
+                {
+                    <div class="form-comment-read mt-5">
+                        <div class="comment-read-header">
+                            <img src="@Url.Content($"~/wwwroot/images/{@item.UserImage}")" class="comment-read-img">
+                            <h5>@item.Username</h5>
+                        </div>
+                        <p class="comment-read-des mt-2">
+                            @item.Description
+                        </p>
+                        <span>@item.Created.ToString("dddd, dd MMMM yyyy")</span>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

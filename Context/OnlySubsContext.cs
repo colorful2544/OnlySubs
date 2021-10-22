@@ -324,7 +324,8 @@ namespace OnlySubs.Context
 
                 entity.Property(e => e.Created)
                     .HasColumnType("datetime")
-                    .HasColumnName("created");
+                    .HasColumnName("created")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.PostId)
                     .IsRequired()

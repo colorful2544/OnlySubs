@@ -34,7 +34,7 @@ namespace OnlySubs.Services.PostService
             string postId = Guid.NewGuid().ToString();
             bool isSub = false;
 
-            if(postCreateRequest.Price > 0)
+            if (postCreateRequest.Price > 0)
             {
                 isSub = true;
             }
@@ -48,7 +48,7 @@ namespace OnlySubs.Services.PostService
             };
             _db.Posts.Add(post);
 
-            if(postCreateRequest.Price > 0)
+            if (postCreateRequest.Price > 0)
             {
                 PostsPrice price = new PostsPrice
                 {
@@ -59,12 +59,12 @@ namespace OnlySubs.Services.PostService
             }
 
             List<string> imagesName = new List<string>();
-            foreach(IFormFile image in postCreateRequest.Images)
+            foreach (IFormFile image in postCreateRequest.Images)
             {
                 string imageName = _imageService.Create(image);
                 imagesName.Add(imageName);
             }
-            foreach(string image in imagesName)
+            foreach (string image in imagesName)
             {
                 PostsImage postImage = new PostsImage
                 {
@@ -78,53 +78,56 @@ namespace OnlySubs.Services.PostService
 
             return postId;
         }
-        
+
         public async Task<List<PostsResponse>> FindByFollowing(string userId)
         {
-            
+
             List<string> followingUserId = await _db.UsersFollows.Where(user => user.UserId == userId)
                                                 .Select(user => user.IsFollowingUserId).ToListAsync();
-            
+
             List<List<Post>> postByFollowing = new List<List<Post>>();
-            foreach(string id in followingUserId)
+            foreach (string id in followingUserId)
             {
                 List<Post> posts = await _db.Posts.Where(post => post.UserId == id).ToListAsync();
                 postByFollowing.Add(posts);
             }
-            
+
             List<PostsResponse> postsResult = new List<PostsResponse>();
-            foreach(List<Post> postsList in postByFollowing)
+            foreach (List<Post> postsList in postByFollowing)
             {
-                foreach(Post item in postsList)
+                foreach (Post item in postsList)
                 {
                     User user = await _userService.FindByUserIdAsync(item.UserId);
 
                     string image = string.Empty;
                     int price = 0;
-                    if(item.IsSub)
+                    if (item.IsSub)
                     {
-                        UsersPostsSub checkSub = await _db.UsersPostsSubs.Where(u => u.UserId == user.Id)
+                        UsersPostsSub checkSub = await _db.UsersPostsSubs.Where(u => u.UserId == userId)
                                                                          .Where(p => p.PostId == item.Id)
                                                                          .FirstOrDefaultAsync();
-                        if(checkSub != null)
+                        if (checkSub == null)
                         {
-                            image = await _db.PostsImages.Where(i => i.PostId == item.Id)
-                                                         .OrderBy(i => i.Created)
-                                                         .Select(u => u.ImageName)
-                                                         .FirstOrDefaultAsync();
-                        }
-                        price = await _db.PostsPrices.Where(p => p.PostId == item.Id)
+                            price = await _db.PostsPrices.Where(p => p.PostId == item.Id)
                                                          .Select(i => i.Price)
                                                          .FirstOrDefaultAsync();
+                        }
+                        else 
+                        {
+                            image = await _db.PostsImages.Where(i => i.PostId == item.Id)
+                                                         .Select(u => u.ImageName)
+                                                         .FirstOrDefaultAsync();
+                        }  
+                        
                     }
-                    else 
+                    else
                     {
                         image = await _db.PostsImages.Where(i => i.PostId == item.Id)
                                                          .OrderBy(i => i.Created)
                                                          .Select(u => u.ImageName)
                                                          .FirstOrDefaultAsync();
                     }
-                    
+
                     PostsResponse post = new PostsResponse
                     {
                         PostId = item.Id,
@@ -137,7 +140,7 @@ namespace OnlySubs.Services.PostService
                     postsResult.Add(post);
                 }
             }
-            
+
             postsResult.Sort((x, y) => DateTime.Compare(x.Created, y.Created));
             postsResult.Reverse();
 
@@ -146,23 +149,23 @@ namespace OnlySubs.Services.PostService
 
         public async Task<List<PostsResponse>> FindsByUsername(string username)
         {
-            User user =  await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
+            User user = await _db.Users.FirstOrDefaultAsync(u => u.Username == username);
             IEnumerable<Post> posts = await _db.Posts.Where(p => p.UserId == user.Id).ToListAsync();
 
-            List<PostsResponse> postsResponses = new List<PostsResponse>(); 
-            foreach(Post post in posts)
+            List<PostsResponse> postsResponses = new List<PostsResponse>();
+            foreach (Post post in posts)
             {
                 string image = await _db.PostsImages.OrderBy(p => p.Id)
                                                     .Where(p => p.PostId == post.Id)
                                                     .Select(p => p.ImageName)
                                                     .FirstOrDefaultAsync();
-                
+
                 PostsResponse postResponse = new PostsResponse
                 {
                     Username = user.Username,
                     ImageName = image,
                     Created = post.Created
-                }; 
+                };
 
                 postsResponses.Add(postResponse);
             }
@@ -170,22 +173,54 @@ namespace OnlySubs.Services.PostService
             return postsResponses;
         }
 
-        public async Task<PostResponse> FindByPostId(string postId)
+        public async Task<PostResponse> FindByPostId(string postId, string currentUserId)
         {
             Post post = await _db.Posts.FirstOrDefaultAsync(p => p.Id == postId);
-            User user =  await _db.Users.FirstOrDefaultAsync(u => u.Id == post.UserId);
+            if(post == null)
+            {
+                PostResponse nullResult = null;
+                return nullResult;
+            }
+            
+            User user = await _db.Users.FirstOrDefaultAsync(u => u.Id == post.UserId);
 
-            List<string> images = await _db.PostsImages.Where(i => i.PostId == post.Id)
-                                                       .Select(i => i.ImageName)
-                                                       .ToListAsync();
+            List<string> images = new List<string>();
+            int price = 0;
+
+            if (post.IsSub && post.UserId != currentUserId)
+            {
+                UsersPostsSub checkSub = await _db.UsersPostsSubs.Where(u => u.UserId == currentUserId)
+                                                                 .Where(p => p.PostId == post.Id)
+                                                                 .FirstOrDefaultAsync();
+                if (checkSub == null)
+                {
+                    price = await _db.PostsPrices.Where(p => p.PostId == post.Id)
+                                                         .Select(i => i.Price)
+                                                         .FirstOrDefaultAsync();
+                    images = null;
+                }
+                else 
+                {
+                    images =    await _db.PostsImages.Where(i => i.PostId == post.Id)
+                                                     .Select(i => i.ImageName)
+                                                     .ToListAsync();
+                }
+            }
+            else 
+            {
+                images =    await _db.PostsImages.Where(i => i.PostId == post.Id)
+                                                     .Select(i => i.ImageName)
+                                                     .ToListAsync();
+            }
+
             int likesCount = await _db.PostsLikes.Where(l => l.PostId == postId)
                                                  .CountAsync();
             List<PostsComment> commentRaw = await _db.PostsComments.Where(c => c.PostId == post.Id)
                                                       .ToListAsync();
             List<Comment> commentsWarm = new List<Comment>();
-            foreach(PostsComment raw in commentRaw)
+            foreach (PostsComment raw in commentRaw)
             {
-                User userComment =  await _db.Users.FirstOrDefaultAsync(u => u.Id == raw.UserId);
+                User userComment = await _db.Users.FirstOrDefaultAsync(u => u.Id == raw.UserId);
                 Comment comment = new Comment
                 {
                     Username = userComment.Username,
@@ -195,7 +230,7 @@ namespace OnlySubs.Services.PostService
                 };
                 commentsWarm.Add(comment);
             }
-            
+
             PostResponse postResponse = new PostResponse
             {
                 PostId = post.Id,
@@ -204,8 +239,8 @@ namespace OnlySubs.Services.PostService
                 Images = images,
                 LikesCount = likesCount,
                 Comment = commentsWarm,
-                Created = post.Created
-
+                Created = post.Created,
+                Price = price
             };
             return postResponse;
         }
@@ -216,7 +251,7 @@ namespace OnlySubs.Services.PostService
 
             var posts = await _db.Posts.Where(post => post.UserId == userId)
                                        .ToListAsync();
-            foreach(var post in posts)
+            foreach (var post in posts)
             {
                 string image = await _db.PostsImages.OrderBy(i => i.Created)
                                                     .Select(u => u.ImageName)
