@@ -12,6 +12,7 @@ using OnlySubs.Services.UserResourceService;
 using OnlySubs.Services.UserService;
 using OnlySubs.ViewModels.Requests;
 using OnlySubs.ViewModels.Responses;
+using OnlySubs.Views.LikeService;
 
 namespace OnlySubs.Controllers
 {
@@ -25,13 +26,15 @@ namespace OnlySubs.Controllers
         private readonly IUserService _userService;
         private readonly IBuyPostService _buyPostService;
         private readonly ICommentService _commentService;
+        private readonly ILikeService _likeService;
 
         public PostController(IImageService imageService,
                               IPostService postService,
                               IUserResourceService userResourceService,
                               IUserService userService,
                               IBuyPostService buyPostService,
-                              ICommentService commentService)
+                              ICommentService commentService,
+                              ILikeService likeService)
         {
             _imageService = imageService;
             _postService = postService;
@@ -39,6 +42,7 @@ namespace OnlySubs.Controllers
             _userService = userService;
             _buyPostService = buyPostService;
             _commentService = commentService;
+            _likeService = likeService;
         }
         [HttpGet("create")]
         public async Task<IActionResult> Index()
@@ -76,10 +80,16 @@ namespace OnlySubs.Controllers
             ViewData["Money"] = await _userResourceService.FindMoney(userId);
 
             PostResponse result = await _postService.FindByPostId(postId, userId);
+            if(result == null) 
+            {
+                ViewData["PostResponse"] = null;
+                return View();
+            }
             if(result.Images == null) return Redirect($"buy/{postId}");
 
             ViewData["PostResponse"] = result;
             ViewData["currentUserImage"] = user.ImageName;
+            ViewData["IsLike"] = await _likeService.IsLike(postId, userId);
             return View();
         }
 
@@ -114,6 +124,25 @@ namespace OnlySubs.Controllers
             string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
 
             await _commentService.CommentByPostId(userId, postId, commentRequest.Description);
+            return Redirect($"/post/{postId}");
+        }
+        [HttpPost("like/{postId}")]
+        public async Task<IActionResult> LikeToggle(string postId)
+        {
+            bool validatePost = await _likeService.ValidatePost(postId);
+            if(!validatePost) return Redirect($"/post/{postId}");
+
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+
+            bool isLike = await _likeService.IsLike(postId, userId);
+            if(isLike)
+            {
+                await _likeService.Unlike(postId, userId);
+            }
+            else 
+            {  
+                await _likeService.Like(postId, userId);
+            }
             return Redirect($"/post/{postId}");
         }
     }

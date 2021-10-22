@@ -75,3 +75,7 @@
 .response-icon > .icon > li{
     margin-left: 20px;
 }
+.like-btn {
+    background: none;
+    border: none;
+}
