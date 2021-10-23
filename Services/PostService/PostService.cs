@@ -85,6 +85,7 @@ namespace OnlySubs.Services.PostService
             List<string> followingUserId = await _db.UsersFollows.Where(user => user.UserId == userId)
                                                 .Select(user => user.IsFollowingUserId).ToListAsync();
 
+            followingUserId.Add(userId);
             List<List<Post>> postByFollowing = new List<List<Post>>();
             foreach (string id in followingUserId)
             {
