@@ -240,7 +240,8 @@ namespace OnlySubs.Services.PostService
                 LikesCount = likesCount,
                 Comment = commentsWarm,
                 Created = post.Created,
-                Price = price
+                Price = price,
+                Description = post.Description
             };
             return postResponse;
         }

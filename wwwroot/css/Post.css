@@ -4,9 +4,14 @@
     height: 90px;
     border-bottom: 1px solid rgba(177, 177, 177, 1);
 }
-.post {
+.posts {
     width: 500px;
     height: 600px;
+    border: 1px solid rgba(177, 177, 177, 1);
+    border-radius: 10px;
+}
+.post {
+    width: 500px;
     border: 1px solid rgba(177, 177, 177, 1);
     border-radius: 10px;
 }
@@ -78,4 +83,16 @@
 .like-btn {
     background: none;
     border: none;
+}
+
+
+.post-like-count {
+    margin-left: 20px;
+    font-weight: bold;
+}
+
+
+.post-description {
+    margin-left: 20px;
+    margin-right: 20px;
 }

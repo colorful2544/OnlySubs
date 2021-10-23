@@ -18,7 +18,9 @@ else
                     <img class="img-profile" src="@Url.Content($"~/wwwroot/images/{@postModel.UserImage}")">
                 </div>
                 <div class="header-text">
-                    <h4 class="username">@postModel.Username</h4>
+                    <a class="username-link" href="/account/@postModel.Username">
+                        <h4 class="username">@postModel.Username</h4>
+                     </a>
                     <span>@postModel.Created.ToString("dddd, dd MMMM yyyy")</span>
                 </div>
             </header>
@@ -73,6 +75,12 @@ else
                         </form>
                     </li>
                 </ul>
+            </div>
+            <div>
+                <p class="post-like-count">@postModel.LikesCount Likes</p>
+            </div>
+            <div class="post-description">
+                <p>@postModel.Description</p>
             </div>
         </div>
     </div>
