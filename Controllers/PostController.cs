@@ -61,7 +61,7 @@ namespace OnlySubs.Controllers
             if(!ModelState.IsValid) return View(postCreateRequest);
 
             string[] extention = new string[] {".jpg", ".png"};
-            Console.WriteLine(postCreateRequest.Images.Count());
+
             if(!_imageService.ValidateExtension(postCreateRequest.Images, extention))
             {
                 ViewData["ErrorMessage"] = "Please upload an image with a .jpg , .png file extension.";

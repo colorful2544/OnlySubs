@@ -32,8 +32,8 @@ namespace OnlySubs.Services.UserService
         public async Task CreateAsync(UserRegisterRequest userRegisterRequest)
         {
             string userId = Guid.NewGuid().ToString();
-            User user = new User 
-            { 
+            User user = new User
+            {
                 Id = userId,
                 Username = userRegisterRequest.Username,
                 Password = _passwordService.Hash(userRegisterRequest.Password),
@@ -80,6 +80,27 @@ namespace OnlySubs.Services.UserService
             return await _db.UsersFollows.Where(user => user.UserId == userId)
                                          .Select(fol => fol.UserId)
                                          .CountAsync();
+        }
+
+        public async Task FollowToggle(string userId, string FollowUserId)
+        {
+            UsersFollow isFollow = await _db.UsersFollows.Where(u => u.UserId == userId)
+                                                         .Where(u => u.IsFollowingUserId == FollowUserId)
+                                                         .FirstOrDefaultAsync();
+            if (isFollow != null)
+            {
+                _db.UsersFollows.Remove(isFollow);
+            }
+            else
+            {
+                UsersFollow usersFollow = new UsersFollow
+                {
+                    UserId = userId,
+                    IsFollowingUserId = FollowUserId
+                };
+                _db.UsersFollows.Add(usersFollow);
+            }
+            await _db.SaveChangesAsync();
         }
     }
 }

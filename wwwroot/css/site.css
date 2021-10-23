@@ -12,3 +12,7 @@
   font-size: 30px;
   font-family: logo;
 }
+.no-posts {
+  text-align: center;
+  font-weight: 100;
+}

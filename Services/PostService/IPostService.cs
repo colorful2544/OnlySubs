@@ -13,7 +13,6 @@ namespace OnlySubs.Services.PostService
         Task<List<PostsResponse>> FindByFollowing(string userId);
         Task<List<PostsResponse>> FindsByUsername(string username);
         Task<PostResponse> FindByPostId(string postId, string currentUserId);
-        Task<List<ProfilePostImage>> FindFirstImagePost(string username);
         Task UpdateAsync();
         Task Remove(string postId);
     }

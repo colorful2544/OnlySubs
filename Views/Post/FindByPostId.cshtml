@@ -2,11 +2,10 @@
 @{
     int countImage = 0;
     PostResponse postModel = ViewBag.PostResponse;
-    bool isLike = ViewBag.IsLike;
 }
 @if (postModel == null)
 {
-    <h1 style="margin-top: 100px;">หาไม่เจอ</h1>
+    <h1 class="no-posts text-center" style="margin-top: 120px;">Content not found :(</h1>
 }
 else
 {
@@ -63,7 +62,7 @@ else
                     <li>
                         <form action="/post/like/@postModel.PostId" method="post">
                             <button type="submit" class="like-btn">
-                                @if(isLike)
+                                @if(ViewBag.IsLike)
                                 {
                                     <i class="fas fa-heart fa-2x"></i>
                                 }
