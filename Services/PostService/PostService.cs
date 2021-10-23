@@ -102,7 +102,7 @@ namespace OnlySubs.Services.PostService
 
                     string image = string.Empty;
                     int price = 0;
-                    if (item.IsSub)
+                    if (item.IsSub && userId != item.UserId)
                     {
                         UsersPostsSub checkSub = await _db.UsersPostsSubs.Where(u => u.UserId == userId)
                                                                          .Where(p => p.PostId == item.Id)
@@ -245,27 +245,6 @@ namespace OnlySubs.Services.PostService
                 Description = post.Description
             };
             return postResponse;
-        }
-
-        public async Task<List<ProfilePostImage>> FindFirstImagePost(string userId)
-        {
-            List<ProfilePostImage> postList = new List<ProfilePostImage>();
-
-            var posts = await _db.Posts.Where(post => post.UserId == userId)
-                                       .ToListAsync();
-            foreach (var post in posts)
-            {
-                string image = await _db.PostsImages.OrderBy(i => i.Created)
-                                                    .Select(u => u.ImageName)
-                                                    .FirstOrDefaultAsync();
-                ProfilePostImage profilePost = new ProfilePostImage
-                {
-                    ImageName = image,
-                    PostId = post.Id
-                };
-                postList.Add(profilePost);
-            }
-            return postList;
         }
 
         public Task UpdateAsync()

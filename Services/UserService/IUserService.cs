@@ -13,5 +13,6 @@ namespace OnlySubs.Services.UserService
         Task RemoveAsync(string userId);
         Task<int> FindFollowerCount(string userId);
         Task<int> FindFollowingCount(string userId);   
+        Task FollowToggle(string userId, string FollowUserId);
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlySubs.Models.db;
 using OnlySubs.Services.PostService;
+using OnlySubs.Services.ProfileService;
 using OnlySubs.Services.UserResourceService;
 using OnlySubs.Services.UserService;
 using OnlySubs.ViewModels.Responses;
@@ -17,14 +18,17 @@ namespace OnlySubs.Controllers
         private readonly IUserService _userService;
         private readonly IPostService _postService;
         private readonly IUserResourceService _userResourceService;
+        private readonly IProfileService _profileService;
 
         public AccountController(IUserService userService,
                                  IPostService postService,
-                                 IUserResourceService userResourceService)
+                                 IUserResourceService userResourceService,
+                                 IProfileService profileService)
         {
             _userService = userService;
             _postService = postService;
             _userResourceService = userResourceService;
+            _profileService = profileService;
         }
 
         [HttpGet("{username}")]
@@ -41,22 +45,11 @@ namespace OnlySubs.Controllers
                 return View();
             }
 
-            var follower = await _userService.FindFollowerCount(user.Id);
-            var following = await _userService.FindFollowingCount(user.Id);
-            var resource = await _userResourceService.FindResource(user.Id);
-            var postsImage = await _postService.FindFirstImagePost(user.Id);
+            var result = await _profileService.FindDetail(userId, user.Id);
             
-            UserProfileResponse userProfileResponse = new UserProfileResponse
-            {
-                ImageName = user.ImageName,
-                Username = user.Username,
-                Description = user.Description,
-                Follower = follower,
-                Following = following,
-                Krama = resource.Krama,
-                PostsImage = postsImage
-            };
-            return View(userProfileResponse);
+            ViewData["isFollow"] = await _profileService.IsFollow(userId, user.Id);
+
+            return View(result);
         }
         [HttpGet("setting")]
         public async Task<IActionResult> Setting()
@@ -64,6 +57,17 @@ namespace OnlySubs.Controllers
             string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
             ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
+        }
+        [HttpPost("follow/{username}")]
+        public async Task<IActionResult> FollowToggle(string username)
+        {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            User user = await _userService.FindByUsernameAsync(username);
+
+            if(user == null) return Redirect($"/account/{username}");
+
+            await _userService.FollowToggle(userId, user.Id);
+            return Redirect($"/account/{username}");
         }
     }
 }
