@@ -48,6 +48,13 @@ namespace OnlySubs.Controllers
             ViewData["Money"] = await _userResourceService.FindMoney(userId);
             return View();
         }
+        [HttpGet("about")]
+        public async Task<IActionResult> AboutUs()
+        {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

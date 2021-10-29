@@ -149,3 +149,6 @@ C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Account\In
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Account\Setting.cshtml.g.cs
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Post\FindByPostId.cshtml.g.cs
 C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Post\Index.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Post\Buy.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Resource\Index.cshtml.g.cs
+C:\Users\mintc\Documents\GitHub\OnlySubs\obj\Debug\net5.0\Razor\Views\Home\AboutUs.cshtml.g.cs
