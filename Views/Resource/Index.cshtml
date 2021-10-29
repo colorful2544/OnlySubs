@@ -1,1 +1,23 @@
-<h1 style="margin-top: 100px;">เติมเงินโว้ย</h1>
+@{
+    ViewData["Title"] = "Top Up";
+}
+<div style="margin-top: 150px;">
+    <div class="row justify-content-center mt-5">
+        <form class="col-4 text-center border4div shadow">
+            <h1 class="headText mt-5">
+                TOP UP
+            </h1>
+
+            <input type="text" class="col-9 mt-4 inputCode shadow" placeholder="Example : dydx1234" required>
+
+            <label for="point" class="mt-4 normalText">Your current money</label>
+            <p class="normalText" id="point">
+                <strong>
+                    1000
+                </strong>
+            </p>
+
+            <button type="submit" class="col-9 submitButton mb-5 shadow">Redeem</button>
+        </form>
+    </div>
+</div>
