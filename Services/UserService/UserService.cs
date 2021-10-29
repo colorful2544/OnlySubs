@@ -64,8 +64,9 @@ namespace OnlySubs.Services.UserService
         {
             User user = await FindByUserIdAsync(userId);
             user.Username = userUpdateRequest.Username;
-            user.Description = userUpdateRequest.Description;
 
+            if(!string.IsNullOrEmpty(userUpdateRequest.Description)) user.Description = userUpdateRequest.Description;
+            
             if(userUpdateRequest.ImageProfile != null) user.ImageName = _imageService.Create(userUpdateRequest.ImageProfile);
 
             _db.Users.Update(user);
