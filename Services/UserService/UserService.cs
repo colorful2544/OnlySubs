@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using OnlySubs.Context;
 using OnlySubs.Models.db;
+using OnlySubs.Services.ImageService;
 using OnlySubs.Services.PasswordService;
 using OnlySubs.Services.UserResourceService;
 using OnlySubs.Services.UserRoleService;
@@ -17,16 +18,19 @@ namespace OnlySubs.Services.UserService
         private readonly IUserRoleService _userRoleService;
         private readonly IPasswordService _passwordService;
         private readonly IUserResourceService _userResourceService;
+        private readonly IImageService _imageService;
 
         public UserService(OnlySubsContext db,
                            IUserRoleService userRoleService,
                            IPasswordService passwordService,
-                           IUserResourceService userResourceService)
+                           IUserResourceService userResourceService,
+                           IImageService imageService)
         {
             _db = db;
             _userRoleService = userRoleService;
             _passwordService = passwordService;
             _userResourceService = userResourceService;
+            _imageService = imageService;
         }
 
         public async Task CreateAsync(UserRegisterRequest userRegisterRequest)
@@ -56,9 +60,17 @@ namespace OnlySubs.Services.UserService
             return await _db.Users.FirstOrDefaultAsync(user => user.Username == username);
         }
 
-        public Task UpdateAsync(UserUpdateRequest userUpdateRequest)
+        public async Task UpdateAsync(UserUpdateRequest userUpdateRequest,string userId)
         {
-            throw new System.NotImplementedException();
+            User user = await FindByUserIdAsync(userId);
+            user.Username = userUpdateRequest.Username;
+            user.Description = userUpdateRequest.Description;
+
+            if(userUpdateRequest.ImageProfile != null) user.ImageName = _imageService.Create(userUpdateRequest.ImageProfile);
+
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
+            Console.WriteLine("Update complete");
         }
 
         public async Task RemoveAsync(string userId)
