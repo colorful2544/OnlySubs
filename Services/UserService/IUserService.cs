@@ -9,7 +9,7 @@ namespace OnlySubs.Services.UserService
         Task CreateAsync(UserRegisterRequest userRegisterRequest);
         Task<User> FindByUsernameAsync(string username);
         Task<User> FindByUserIdAsync(string userId);
-        Task UpdateAsync(UserUpdateRequest userUpdateRequest);
+        Task UpdateAsync(UserUpdateRequest userUpdateRequest, string userId);
         Task RemoveAsync(string userId);
         Task<int> FindFollowerCount(string userId);
         Task<int> FindFollowingCount(string userId);   
