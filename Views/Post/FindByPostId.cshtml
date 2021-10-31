@@ -33,7 +33,12 @@ else
                                 <i class="fas fa-cog fa-2x"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item text-danger" href="#">Delete</a></li>
+                                <li>
+                                    <form action="/post/delete/@postModel.PostId" method="post">
+                                        <button class="text-danger dropdown-item" type="submit"
+                                    style="background: none; border: none; outline: none;">Delete</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>

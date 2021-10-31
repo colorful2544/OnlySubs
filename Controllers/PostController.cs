@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -144,6 +145,18 @@ namespace OnlySubs.Controllers
                 await _likeService.Like(postId, userId);
             }
             return Redirect($"/post/{postId}");
+        }
+        [HttpPost("delete/{postId}")]
+        public async Task<IActionResult> Delete(string postId)
+        {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            string username = User.Claims.FirstOrDefault(user => user.Type == ClaimTypes.Name).Value;
+
+            bool validate = _postService.ValidatePostByUserId(postId, userId);
+            if(!validate) return NotFound();
+
+            await _postService.Remove(postId);
+            return Redirect($"/account/{username}");
         }
     }
 }

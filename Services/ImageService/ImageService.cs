@@ -25,6 +25,14 @@ namespace OnlySubs.Services.ImageService
 
             return newFileName;
         }
+        public void Remove(List<string> imagesName)
+        {
+            foreach(string imageName in imagesName)
+            {
+                string filePath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")).Root + $@"{imageName}";
+                System.IO.File.Delete(filePath);
+            }
+        }
 
         public bool ValidatesExtension(List<IFormFile> images, string[] extension)
         {
