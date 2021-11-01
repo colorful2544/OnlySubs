@@ -15649,6 +15649,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\Account\\Search.cshtml",
+      "TargetPath": "Views\\Account\\Search.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\mintc\\Documents\\GitHub\\OnlySubs\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"
