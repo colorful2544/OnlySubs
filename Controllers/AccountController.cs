@@ -12,6 +12,7 @@ using OnlySubs.Models.db;
 using OnlySubs.Services.ImageService;
 using OnlySubs.Services.PostService;
 using OnlySubs.Services.ProfileService;
+using OnlySubs.Services.SearchService;
 using OnlySubs.Services.UserResourceService;
 using OnlySubs.Services.UserService;
 using OnlySubs.ViewModels.Requests;
@@ -28,18 +29,21 @@ namespace OnlySubs.Controllers
         private readonly IUserResourceService _userResourceService;
         private readonly IProfileService _profileService;
         private readonly IImageService _imageService;
+        private readonly ISearchService _searchService;
 
         public AccountController(IUserService userService,
                                  IPostService postService,
                                  IUserResourceService userResourceService,
                                  IProfileService profileService,
-                                 IImageService imageService)
+                                 IImageService imageService,
+                                 ISearchService searchService)
         {
             _userService = userService;
             _postService = postService;
             _userResourceService = userResourceService;
             _profileService = profileService;
             _imageService = imageService;
+            _searchService = searchService;
         }
 
         [HttpGet("{username}")]
@@ -145,6 +149,17 @@ namespace OnlySubs.Controllers
 
             await _userService.FollowToggle(userId, user.Id);
             return Redirect($"/account/{username}");
+        }
+        [HttpGet("search")]
+        public async Task<IActionResult> Search(string search)
+        {
+            string userId = User.Claims.FirstOrDefault(user => user.Type == "id").Value;
+            ViewData["Money"] = await _userResourceService.FindMoney(userId);
+            
+            var result = await _searchService.Finds(search);
+            if(result.Count <= 0) result = null;
+            
+            return View(result);
         }
     }
 }

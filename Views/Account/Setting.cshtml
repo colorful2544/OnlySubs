@@ -6,8 +6,8 @@
 <div class="container" style="width: 500px;margin-top: 120px;">
     <form asp-controller="Account" asp-action="Setting" method="post" enctype="multipart/form-data">
         <div class="setting-image">
-            <img class="setting-image-preview" id="blah"
-                src="@Url.Content($"~/wwwroot/images/{@defaultSetting.ImageName}")" alt="your image" />
+            <img src="@Url.Content($"~/wwwroot/images/{@defaultSetting.ImageName}")" class="setting-image-preview" id="blah"
+                 alt="your image" />
         </div>
         <div asp-validation-summary="All" class="text text-danger"></div>
         <div class="mt-5">
@@ -37,9 +37,6 @@
         }
         <div class="mt-4  save">
             <button type="submit" class="btn btn-primary">Save</button>
-        </div>
-        <div class="mt-4 changePassword">
-            <a class="btn btn-outline-danger">Change Password</a>
         </div>
     </form>
 </div>

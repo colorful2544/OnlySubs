@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="~/css/Profile.css">
     <link rel="stylesheet" href="~/css/AboutUs.css">
     <link rel="stylesheet" href="~/css/Setting.css">
+    <link rel="stylesheet" href="~/css/Resource.css">
+    <link rel="stylesheet" href="~/css/Search.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
         integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -25,6 +27,12 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom box-shadow mb-3 fixed-top shadow">
                 <div class="container">
                     <a class="navbar-brand" href="/">OnlySubs</a>
+                    <form class="search-navbar" action="/account/search">
+                        <input type="text" class="form-control" name="search" required>
+                        <button type="submit" style="background: none; border: none; outline: none;">
+                            <i class="fas fa-search fa-lg"></i>
+                        </button>
+                    </form>
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" role="button"
@@ -32,7 +40,7 @@
                                 @User.Identity.Name
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" href="">Cash : @ViewData["Money"]</a></li>
+                                <li><a class="dropdown-item" href="/resource">$ : @ViewData["Money"]</a></li>
                                 <li>
                                     <hr style="margin: 10px">
                                 </li>

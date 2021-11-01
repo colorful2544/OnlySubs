@@ -1,8 +1,20 @@
 .post-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     height: 90px;
     border-bottom: 1px solid rgba(177, 177, 177, 1);
+}
+.posts-header {
+    display: flex;
+    align-items: center;
+    height: 90px;
+    border-bottom: 1px solid rgba(177, 177, 177, 1);
+}
+.post-header-profile {
+    display: flex;
+    align-items: center;
+    height: 90px;
 }
 .posts {
     width: 500px;
@@ -29,6 +41,14 @@
 
 .header-text {
     margin-left: 10px;
+}
+.header-icon {
+    margin-right: 10px;
+}
+.header-icon > .dropdown > .btn-icon {
+    background: none;
+    border: none;
+    outline: none;
 }
 
 .content-img {
