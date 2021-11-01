@@ -24,26 +24,14 @@ namespace OnlySubs.Services.ImageService
 
             return newFileName;
         }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> 01ef75a58a2b4d336187a4c4d3d12e67841c1827
         public void Remove(List<string> imagesName)
         {
             foreach(string imageName in imagesName)
             {
-<<<<<<< HEAD
-=======
->>>>>>> 01ef75a58a2b4d336187a4c4d3d12e67841c1827
                 string filePath = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images")).Root + $@"{imageName}";
                 System.IO.File.Delete(filePath);
             }
         }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 01ef75a58a2b4d336187a4c4d3d12e67841c1827
 
         public bool ValidatesExtension(List<IFormFile> images, string[] extension)
         {
