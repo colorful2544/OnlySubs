@@ -7,7 +7,7 @@
     <form asp-controller="Account" asp-action="Setting" method="post" enctype="multipart/form-data">
         <div class="setting-image">
             <img class="setting-image-preview" id="blah"
-                src="@Url.Content($"~/wwwroot/images/{@defaultSetting.ImageName}")" alt="your image" />
+                 alt="your image" />
         </div>
         <div asp-validation-summary="All" class="text text-danger"></div>
         <div class="mt-5">
