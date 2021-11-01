@@ -78,7 +78,14 @@ namespace OnlySubs.Services.PostService
 
             return postId;
         }
-
+        public bool ValidatePostByUserId(string postId, string userId)
+        {
+            var result = _db.Posts.Where(p => p.Id == postId)
+                                  .Where(p => p.UserId == userId)
+                                  .FirstOrDefault()
+                                  != null;
+            return result;
+        }
         public async Task<List<PostsResponse>> FindByFollowing(string userId)
         {
 
@@ -252,9 +259,34 @@ namespace OnlySubs.Services.PostService
             throw new System.NotImplementedException();
         }
 
-        public Task Remove(string postId)
+        public async Task Remove(string postId)
         {
-            throw new System.NotImplementedException();
+            List<string> imagesName = await _db.PostsImages.Where(p => p.PostId == postId)
+                                                           .Select(p => p.ImageName)
+                                                           .ToListAsync();
+            var imagesPost = await _db.PostsImages.Where(p => p.PostId == postId).ToListAsync();
+            _db.PostsImages.RemoveRange(imagesPost);
+
+            var commentsPost = await _db.PostsComments.Where(p => p.PostId == postId).ToListAsync();
+            _db.PostsComments.RemoveRange(commentsPost);
+
+            var likesPost = await _db.PostsLikes.Where(p => p.PostId == postId).ToListAsync();
+            _db.PostsLikes.RemoveRange(likesPost);
+
+            var post = await _db.Posts.Where(p => p.Id == postId).FirstOrDefaultAsync();
+            if(post.IsSub)
+            {
+                var pricePost = await _db.PostsPrices.Where(p => p.PostId == postId).FirstOrDefaultAsync();
+                _db.PostsPrices.Remove(pricePost);
+
+                var usersSub = await _db.UsersPostsSubs.Where(p => p.PostId == postId).ToListAsync();
+                _db.UsersPostsSubs.RemoveRange(usersSub);
+            }
+            _db.Posts.Remove(post);
+
+            await _db.SaveChangesAsync();    
+
+            _imageService.Remove(imagesName);
         }
     }
 }
